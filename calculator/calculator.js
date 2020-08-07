@@ -55,11 +55,14 @@ function update() {
 // that always has 2 decimal places.
 function calculateMonthlyPayment(values) {
   //create a variable and assign to it a object's rate divided by 100 and result devided by 12
-    const interestRate = values.rate / 100 / 12;
+    const interestRate = (values.rate / 100) / 12;
   //create a variable and multiply the object's years by 12 and floor the result
     const numberOfPayments = Math.floor(values.years * 12);
   //return the result (check the formula provided for reference:   result = 𝑃×𝑖 / 1−(1+𝑖)−𝑛
-  return values.amount * interestRate / (1 - Math.pow(1 + interestRate), numberOfPayments).toFixed(2);         
+  return (
+    (values.amount * interestRate) /
+    (1 - Math.pow((1 + interestRate), -numberOfPayments))
+  ).toFixed(2);         
 }
 
 // Given a string representing the monthly payment value,
