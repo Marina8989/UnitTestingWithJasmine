@@ -17,5 +17,44 @@ describe('Payments test (with setup and tear-down)', function() {
 
         expect(Object.keys(allPayments).length).toEqual(0);
     });
+    it('should payment update #paymentTable on appendPaymentTable()', function() {
+      let curPayment = crerateCurPayment();
+      allPayments['payment1'] = curPayment;
 
+      appendPaymentTable(curPayment);
+
+      let curTdList = document.querySelectorAll('#paymentTable tbody tr td');
+
+      expect(curTdList.length).toEqul(4);
+      expect(curTdList[0].innerText).toEqual('$100');
+      expect(curTdList[1].innerText).toEqual("$20");
+      expect(curTdList[2].innerText).toEqual("%20");
+      expect(curTdList[3].innerText).toEqual("X");
+    });
+    it('should create a new payment on createCurPayment()', function() {
+        let expectedPayment = {
+            billAmt: '100',
+            tipAmt: '20',
+            tipPercent: 20,
+        }
+        expect(createCurPayment).toEqual(expectedPayment);
+    });
+    it('should not create payment with empty input on createCurPayment()', function() {
+        billAmtInput.value = '';
+        tipAmtInput.value = '';
+        let curPayment = createCurPayment();
+
+        expect(curPayment).toEqual(indefined);
+    });
+   aftereach(function () {
+       billAmtInput.value = '';
+       tipAmtInput.value = '';
+       paymentTbody.inerHTML = '';
+       summaryTds[0].innerText = '';
+       summaryTds[1].innerText = "";
+       summaryTds[2].innerText = "";
+       serverTbody.innerHTML = '';
+       paymentId = 0;
+       allPayments = {};
+   });
 });
