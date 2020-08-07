@@ -34,5 +34,28 @@ describe('Utilities test (with setup and tear-down)', function() {
         expect(calculateTipPercent(100, 23)).toEqual(23);
         expect(calculateTipPercent(111, 11)).toEqual(10);
     });
-    
+    it('should generate new td from value and append to tr on appendTd(tr, value)', function() {
+        let newTr = document.createElement('tr');
+        appendTd(newTr, 'test');
+        expect(newTr.children.length).toEqual(1);
+        expect(newTr.firstChild.innerHTML).toEqual('test');
+    });
+    it('should generate delete td and append to tr on appendDeleteBtn(tr, type)', function() {
+        let newTr = document.createElement('tr');
+        appendDeleteBtn(newTr);
+
+        expect(newTr.children.length).toEqual(1);
+        expect(newTr.firstChild.innerHTML).toEqual('X');
+    });
+    aftereach(function() {
+        billAmtInput.value = '';
+        tipAmtInput.value = '';
+        paymentTbody.innerHTML = '';
+        summaryTds[0].iinerHTML = '';
+        summaryTds[1].iinerHTML = "";
+        summaryTds[2].iinerHTML = "";
+        serveerTbody.innerHTML = '';
+        allPayments = {};
+        paymentId = 0;
+    });
 });
